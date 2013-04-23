@@ -28,7 +28,7 @@
 - (BOOL)_runFilePathAndLineNumber:(NSString *)filePathAndLineNumber {
     if (!filePathAndLineNumber) return NO;
 
-    static NSString *CDRSRunFocused_EnvironmentVariableName = @"CEDAR_SPEC_FILE";
+    static NSString *CDRSRunFocused_EnvironmentVariableName = @"KW_SPEC_FILE";
 
     [IDELaunchSession_CDRSCustomize customizeNextLaunchSession:^(XC(IDELaunchSession) launchSession){
         NSLog(@"CDRSRunFocused - running spec: '%@'", filePathAndLineNumber);
