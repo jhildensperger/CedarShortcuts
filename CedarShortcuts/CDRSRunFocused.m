@@ -7,20 +7,25 @@
 @implementation CDRSRunFocused
 
 - (BOOL)runFocusedSpec {
-    self.lastFocusedRunPath =
-        F(@"%@:%lld", self._currentFilePath, self._currentLineNumber);
-    return [self _runFilePathAndLineNumber:self.lastFocusedRunPath];
+    self.lastFocusedRunURI =
+    F(@"%@:%lld", [self fileNameInPath:self._currentFilePath], self._currentLineNumber);
+    return [self _runFilePathAndLineNumber:self.lastFocusedRunURI];
 }
 
 - (BOOL)runFocusedFile {
-    self.lastFocusedRunPath = F(@"%@:0", self._currentFilePath);
-    return [self _runFilePathAndLineNumber:self.lastFocusedRunPath];
+    self.lastFocusedRunURI = F(@"%@:0", [self fileNameInPath:self._currentFilePath]);
+    return [self _runFilePathAndLineNumber:self.lastFocusedRunURI];
 }
 
 - (BOOL)runFocusedLast {
-    if (self.lastFocusedRunPath) {
-        return [self _runFilePathAndLineNumber:self.lastFocusedRunPath];
+    if (self.lastFocusedRunURI) {
+        return [self _runFilePathAndLineNumber:self.lastFocusedRunURI];
     } return NO;
+}
+
+- (NSString *)fileNameInPath:(NSString *)path {
+    NSArray *pathParts = [path componentsSeparatedByString:@"/"];
+    return pathParts.count > 1 ? [pathParts objectAtIndex:pathParts.count -1] : nil;
 }
 
 #pragma mark -
@@ -28,7 +33,7 @@
 - (BOOL)_runFilePathAndLineNumber:(NSString *)filePathAndLineNumber {
     if (!filePathAndLineNumber) return NO;
 
-    static NSString *CDRSRunFocused_EnvironmentVariableName = @"KW_SPEC_FILE";
+    static NSString *CDRSRunFocused_EnvironmentVariableName = @"KW_SPEC";
 
     [IDELaunchSession_CDRSCustomize customizeNextLaunchSession:^(XC(IDELaunchSession) launchSession){
         NSLog(@"CDRSRunFocused - running spec: '%@'", filePathAndLineNumber);
@@ -69,15 +74,15 @@
 
 #pragma mark - Last focused run path
 
-static NSString *__lastFocusedRunPath = nil;
+static NSString *__lastFocusedRunURI = nil;
 
-- (NSString *)lastFocusedRunPath {
-    return __lastFocusedRunPath;
+- (NSString *)lastFocusedRunURI {
+    return __lastFocusedRunURI;
 }
 
-- (void)setLastFocusedRunPath:(NSString *)path {
-    NSString *lastPath = __lastFocusedRunPath;
-    __lastFocusedRunPath = [path copy];
+- (void)setLastFocusedRunURI:(NSString *)path {
+    NSString *lastPath = __lastFocusedRunURI;
+    __lastFocusedRunURI = [path copy];
     [lastPath release];
 }
 @end
