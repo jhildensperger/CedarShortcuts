@@ -1,16 +1,12 @@
-A fork of CedarShortcuts to integrate with unsupported features in Kiwi.
+A fork of CedarShortcuts to integrate with Kiwi. 
 
 * Install by building this project
 
-* Shortcuts
+*  Shortcuts
 
     `Ctrl + Alt + U`  
     Runs example under the cursor in the currently active file  
     (Product > Run Focused Spec)
-
-    `Ctrl + Alt + Cmd + U`  
-    Runs the all examples in the currently active file  
-    (Product > Run Focused File)
 
     `Shift + Ctrl + Alt + Cmd + U`  
     Runs the previously focused example(s)  
