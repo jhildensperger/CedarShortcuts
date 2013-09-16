@@ -34,18 +34,20 @@
     if (!filePathAndLineNumber) return NO;
 
     static NSString *CDRSRunFocused_EnvironmentVariableName = @"KW_SPEC";
-
+    
     [IDELaunchSession_CDRSCustomize customizeNextLaunchSession:^(XC(IDELaunchSession) launchSession){
         NSLog(@"CDRSRunFocused - running spec: '%@'", filePathAndLineNumber);
         XC(IDELaunchParametersSnapshot) params = launchSession.launchParameters;
 
         // Used with 'Run' context (i.e. separate Test target)
-        NSMutableDictionary *runEnv = params.environmentVariables;
+        NSMutableDictionary *runEnv = [params.environmentVariables mutableCopy];
         [runEnv setObject:filePathAndLineNumber forKey:CDRSRunFocused_EnvironmentVariableName];
+        [(id)params setValue:[runEnv copy] forKey:@"_environmentVariables"];
 
         // Used with 'Test' context (i.e. Test Bundles)
         NSMutableDictionary *testEnv = params.testingEnvironmentVariables;
         [testEnv setObject:filePathAndLineNumber forKey:CDRSRunFocused_EnvironmentVariableName];
+        [(id)params setValue:[testEnv copy] forKey:@"_testingEnvironmentVariables"];
     }];
 
     [self _runTests];
@@ -82,4 +84,5 @@ static NSString *__lastFocusedRunURI = nil;
 - (void)setLastFocusedRunURI:(NSString *)path {
     __lastFocusedRunURI = [path copy];
 }
+
 @end
