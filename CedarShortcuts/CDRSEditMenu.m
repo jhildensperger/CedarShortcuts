@@ -5,9 +5,7 @@
 @implementation CDRSEditMenu
 
 - (void)insertImport:(id)sender {
-    CDRSInsertImport *insertImporter =
-        [[[CDRSInsertImport alloc]
-            initWithEditor:[CDRSXcode currentEditor]] autorelease];
+    CDRSInsertImport *insertImporter = [[CDRSInsertImport alloc] initWithEditor:CDRSXcode.currentSourceCodeEditor];
     [insertImporter insertImport];
 }
 
@@ -20,7 +18,7 @@
 #pragma mark - Menu items
 
 - (NSMenuItem *)_insertImportItem {
-    NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+    NSMenuItem *item = [[NSMenuItem alloc] init];
     item.title = @"Insert #import";
     item.target = self;
     item.action = @selector(insertImport:);
