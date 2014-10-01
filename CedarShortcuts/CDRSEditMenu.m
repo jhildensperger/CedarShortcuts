@@ -5,7 +5,7 @@
 @implementation CDRSEditMenu
 
 - (void)insertImport:(id)sender {
-    CDRSInsertImport *insertImporter = [[CDRSInsertImport alloc] initWithEditor:CDRSXcode.currentSourceCodeEditor];
+    CDRSInsertImport *insertImporter = [[CDRSInsertImport alloc] initWithEditor:[CDRSXcode currentEditor]];
     [insertImporter insertImport];
 }
 

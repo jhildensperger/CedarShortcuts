@@ -45,7 +45,7 @@
         [(id)params setValue:[runEnv copy] forKey:@"_environmentVariables"];
 
         // Used with 'Test' context (i.e. Test Bundles)
-        NSMutableDictionary *testEnv = params.testingEnvironmentVariables;
+        NSMutableDictionary *testEnv = [params.testingEnvironmentVariables mutableCopy];
         [testEnv setObject:filePathAndLineNumber forKey:CDRSRunFocused_EnvironmentVariableName];
         [(id)params setValue:[testEnv copy] forKey:@"_testingEnvironmentVariables"];
     }];
