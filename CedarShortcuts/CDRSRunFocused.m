@@ -44,9 +44,8 @@
         [runEnv setObject:filePathAndLineNumber forKey:CDRSRunFocused_EnvironmentVariableName];
 
         // Used with 'Test' context (i.e. Test Bundles)
-        NSMutableDictionary *testEnv = [params.testingEnvironmentVariables mutableCopy];
+        NSMutableDictionary *testEnv = params.testingEnvironmentVariables;
         [testEnv setObject:filePathAndLineNumber forKey:CDRSRunFocused_EnvironmentVariableName];
-        [params setTestingEnvironmentVariables:testEnv];
     }];
 
     [self _runTests];
@@ -65,11 +64,11 @@
 
 - (NSString *)_currentFilePath {
     NSString *fullFilePath = CDRSXcode.currentSourceCodeDocumentFileURL.absoluteString;
-    return [fullFilePath stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
+    return [fullFilePath stringByReplacingOccurrencesOfString:@"file://" withString:@""];
 }
 
 - (long long)_currentLineNumber {
-    return CDRSXcode.currentSourceCodeEditor._currentOneBasedLineNubmer;
+    return [[CDRSXcode currentEditor] _currentOneBasedLineNubmer];
 }
 
 #pragma mark - Last focused run path

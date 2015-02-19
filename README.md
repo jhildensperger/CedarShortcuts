@@ -1,6 +1,6 @@
 A fork of CedarShortcuts to integrate with Kiwi. 
 
-* Install by building this project
+* `rake install` or build from XCode
 
 *  Shortcuts
 
